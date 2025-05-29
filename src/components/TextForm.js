@@ -26,12 +26,11 @@ export default function TextForm(props) {
     const [text, setText] = useState('');
     // setText("New text");
 
+
     const Handlecopy = () => {
-        var textArea = document.getElementById("MyBox");
-        textArea.select();
-        // textArea.setSelectionRange(0, 9999); // For mobile devices
-        // text.setSelectionRange(0,9999);
-        navigator.clipboard.writeText(textArea.value);
+        navigator.clipboard.writeText(text);
+       props.showAlert("Copied to Clipboard!", "success");
+        // document.getSelection().removeAllRanges();
     }
     const HandleExtraspaces = () => {
         let newText = text.split(/[ ]+/);
@@ -41,30 +40,31 @@ export default function TextForm(props) {
         <>
             <div className='container'>
 
-                <h2>{props.Heading}</h2>
+                <h3>{props.Heading}</h3>
                 <div className="mb-3">
 
-                    <textarea className="form-control" value={text} onChange={HandleOnChange} id="MyBox" rows="4" style={{ color: color }}></textarea>
+                    <textarea className="form-control" value={text} onChange={HandleOnChange} id="MyBox" rows="6" style={{ color: color }}></textarea>
                 </div>
 
-                <button className="btn btn-primary mx-2" onClick={HandleUpClick}>Convert to UpperCase</button>
-                <button className="btn btn-primary mx-2" onClick={HandleLwClick}>Convert to LowerCase</button>
-                <button className="btn btn-primary mx-2" onClick={ClearText}>Clear Text</button>
-                <button className="btn btn-primary mx-2" onClick={Color}>Color Text</button>
-                <button className="btn btn-primary mx-2" onClick={Handlecopy}>copy</button>
-                <button className="btn btn-primary mx-2" onClick={HandleExtraspaces}>remove Extraspace</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-2 my-2" onClick={HandleUpClick}>Convert to UpperCase</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-2 my-2" onClick={HandleLwClick}>Convert to LowerCase</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-2 my-2" onClick={ClearText}>Clear Text</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-2 my-2" onClick={Color}>Color Text</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-2 my-2" onClick={Handlecopy}>copy</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-2 my-2" onClick={HandleExtraspaces}>remove Extraspace</button>
             </div>
             <div className="container my-3">
                 <h2>Your text summery</h2>
-                <p>{text.split(" ").length} Words and {text.replace(/\s/g, "").length} Characters</p>
-                <p>{0.008 * text.split(" ").length}Minutes read</p>
-                <h3>preview</h3>
-                <p>{text}</p>
+                <p>{text.split(/\s+/).filter((element) => {
+                    return element.length !== 0
+                }).length} Words and {text.replace(/\s/g, "").length} Characters</p>
+                <p>{0.008 * text.split(" ").filter((element) => {
+                    return element.length !== 0
+                }).length} Minutes read</p>
+                <h3>Preview</h3>
+                <p>{text.length > 0 ? text : "Nothing to Preview"}</p>
             </div>
         </>
     )
 }
-
-
-
 

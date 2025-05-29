@@ -41,3 +41,26 @@
 .blank {
   color: goldenrod;
 }
+
+.navbar-nav .nav-link {
+  border-radius: 5px;
+  padding: 6px 12px; /* Optional: adds spacing inside the rounded link */
+  transition: all 0.3s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  background-color: whitesmoke;
+  text-decoration: none;
+  transition: 0.9s;
+  color: #000;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  background-color: #000;
+  text-decoration: none;
+  transition: 0.9s;
+  color: whitesmoke;
+}
+
+
+
